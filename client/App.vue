@@ -2,21 +2,7 @@
   <div class="container mt-5">
     <h1 class="text-center">Meteor with Vue</h1>
 
-    <form @submit="createMessage">
-      <div class="row">
-        <div class="col-6 mb-5">
-          <input type="text" class="form-control" placeholder="First name" name="firstName">
-        </div>
-        <div class="col-6 mb-5">
-          <input type="text" class="form-control" placeholder="Last name" name="lastName">
-        </div>
-        <div class="col-12 mb-5">
-          <input type="text" class="form-control" placeholder="Message" name="message">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-    
+    <messageform :user="meteorUser"></messageform>
     <messages :messages="messages"></messages>
     
   </div>
@@ -24,25 +10,16 @@
 
 <script>
 import '/imports/collections/messages';
+import messageform from './components/MessageForm.vue'
+import messages from './components/Messages.vue'
 
 export default {
   data() {
     return {};
   },
-  methods: {
-    createMessage(e) {
-      e.preventDefault();
-
-      const message = {
-        firstName: e.target.firstName.value,
-        lastName: e.target.lastName.value,
-        content: e.target.message.value,
-        createdAt: new Date()
-      }
-
-      Messages.insert({ message });
-
-    }
+  components: {
+    messages,
+    messageform
   },
   meteor: {
     messages() {
@@ -57,6 +34,6 @@ export default {
 
 <style scoped>
   form {
-    padding: 75px;
+    padding: 150px;
   }
 </style>
